@@ -8,9 +8,10 @@ app.config['SECRET_KEY'] = 'c6be9d9483e7cf90554cb2790ec2f204'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
 
+
 class UrlModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    url = db.Column(db.String(200),unique=True, nullable=False)
+    url = db.Column(db.String(200), unique=True, nullable=False)
     url_short = db.Column(db.String(100), nullable=False)
 
     def __repr__(self):
@@ -22,13 +23,16 @@ def find_url(url):
     print(found)
     return found
 
+
 def find_short(short):
     found = UrlModel.query.filter_by(url_short=short).first()
     return found
 
+
 @app.route("/")
 def home():
     return render_template('home.html')
+
 
 @app.route("/shorten", methods=['GET', 'POST'])
 def shorten():
@@ -47,7 +51,8 @@ def shorten():
     else:
         return render_template('shorten.html', form=form)
 
-@app.route("/<str:id>")
+
+@app.route("/<string:id>")
 def change(id):
     short = find_short(id).url_short
     url = find_short(id).url
@@ -56,7 +61,7 @@ def change(id):
 # def result():
 #     if request.method == 'POST':
 #         return render_template('result.html')
-        
+
 
 if __name__ == '__main__':
     app.run(debug=True)
