@@ -8,6 +8,10 @@ flask = "*"
 flask-cors = "*"
 flask-sqlalchemy = "*"
 flask-wtf = "*"
+shortuuid = "*"
+
+[scripts]
+dev = "bash -c \"set FLASK_ENV='development' && flask run\""
 
 [dev-packages]
 
