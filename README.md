@@ -1,6 +1,6 @@
 # URL shortener
 
-##Technology
+## Technology
 * Python flask
 
 ## Functionality
