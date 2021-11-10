@@ -24,6 +24,7 @@ def find_url(url):
 
 def find_short(short):
     found = UrlModel.query.filter_by(url_short=short).first()
+    print(found)
     return found
 
 @app.route("/")
@@ -47,15 +48,10 @@ def shorten():
     else:
         return render_template('shorten.html', form=form)
 
-@app.route("/<str:id>")
+@app.route("/<string:id>")
 def change(id):
-    short = find_short(id).url_short
     url = find_short(id).url
-
-# @app.route("/result", methods=['GET', 'POST'])
-# def result():
-#     if request.method == 'POST':
-#         return render_template('result.html')
+    return redirect(url)
         
 
 if __name__ == '__main__':
