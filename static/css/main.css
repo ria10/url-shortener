@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap");
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-image: url("img_tree.gif"), url("paper.gif");
+  color: #161e54 !important;
+}
+
+.title {
+  text-align: center;
+  font-family: Roboto;
+  font-size: 2.5rem;
+}
+
+p {
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+}
