@@ -10,10 +10,10 @@ flask-sqlalchemy = "*"
 flask-wtf = "*"
 shortuuid = "*"
 
-[dev-packages]
-
 [scripts]
 dev = "bash -c \"export FLASK_ENV='development' && flask run\""
+
+[dev-packages]
 
 [requires]
 python_version = "3.10"

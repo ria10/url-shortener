@@ -26,3 +26,8 @@ p {
 a {
   text-decoration: none;
 }
+
+.error-span {
+  color: #d83a56;
+  font-size: 50px;
+}

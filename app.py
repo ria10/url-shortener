@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from form import UrlForm
 import shortuuid
+from werkzeug import exceptions
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'c6be9d9483e7cf90554cb2790ec2f204'
@@ -30,6 +31,13 @@ def find_short(short):
     return found
 
 
+def isValid(id):
+    if len(id) != 7:
+        return False
+    else:
+        return True
+
+
 @app.route("/")
 def home():
     return render_template('home.html')
@@ -55,8 +63,16 @@ def shorten():
 
 @app.route("/<string:id>")
 def change(id):
-    url = find_short(id).url
-    return redirect(url)
+    if isValid(id):
+        url = find_short(id).url
+        return redirect(url)
+    else:
+        return render_template('404.html')
+
+
+# @app.errorhandler(exceptions.NotFound)
+# def handle_404(err):
+#      return render_template('404.html')
 
 
 if __name__ == '__main__':
