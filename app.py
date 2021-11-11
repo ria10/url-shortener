@@ -2,15 +2,17 @@ from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from form import UrlForm
 import shortuuid
+from werkzeug import exceptions
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'c6be9d9483e7cf90554cb2790ec2f204'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
 
+
 class UrlModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    url = db.Column(db.String(200),unique=True, nullable=False)
+    url = db.Column(db.String(200), unique=True, nullable=False)
     url_short = db.Column(db.String(100), nullable=False)
 
     def __repr__(self):
@@ -22,13 +24,24 @@ def find_url(url):
     print(found)
     return found
 
+
 def find_short(short):
     found = UrlModel.query.filter_by(url_short=short).first()
+    print(found)
     return found
+
+
+def isValid(id):
+    if len(id) != 7:
+        return False
+    else:
+        return True
+
 
 @app.route("/")
 def home():
     return render_template('home.html')
+
 
 @app.route("/shorten", methods=['GET', 'POST'])
 def shorten():
@@ -47,16 +60,20 @@ def shorten():
     else:
         return render_template('shorten.html', form=form)
 
-@app.route("/<str:id>")
-def change(id):
-    short = find_short(id).url_short
-    url = find_short(id).url
 
-# @app.route("/result", methods=['GET', 'POST'])
-# def result():
-#     if request.method == 'POST':
-#         return render_template('result.html')
-        
+@app.route("/<string:id>")
+def change(id):
+    if isValid(id):
+        url = find_short(id).url
+        return redirect(url)
+    else:
+        return render_template('404.html')
+
+
+# @app.errorhandler(exceptions.NotFound)
+# def handle_404(err):
+#      return render_template('404.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
