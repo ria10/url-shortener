@@ -4,8 +4,13 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-image: url("img_tree.gif"), url("paper.gif");
   color: #161e54 !important;
+}
+
+.footer-wrapper {
+  text-align: center;
+  position: absolute;
+  bottom: 0;
 }
 
 .title {
